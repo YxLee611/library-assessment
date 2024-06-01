@@ -1,15 +1,31 @@
 <template>
     <div>
         <header>
-            <p>tetstt</p>
-            <!-- You can include a header here if needed -->
+            <nav class="navbar">
+                <div class="library-name">
+                    <p>Library Name</p>
+                </div>
+
+                <div class="user-name">
+                    <p>User Name</p>
+                </div>
+            </nav>
         </header>
         <main>
-            <slot></slot>
+            <nav class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Books</a></li>
+                    <li><a href="#">Users</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Reports</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
+            <div class="dashboard-container">
+                <slot></slot>
+            </div>
         </main>
-        <footer>
-            <!-- You can include a footer here if needed -->
-        </footer>
     </div>
 </template>
 
