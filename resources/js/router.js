@@ -1,13 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
+import DefaultLayout from './layouts/default.vue';
 
 const routes = [
     {
         path: "/",
-        component: () => import("./Pages/HomeRoute.vue"),
+        component: () => import("./page/Dashboard.vue"),
+        meta: { layout: DefaultLayout },
     },
     {
         path: "/test",
-        component: () => import("./Pages/TestRoute.vue"),
+        component: () => import("./page/TestRoute.vue"),
+        meta: { layout: DefaultLayout },
     },
 ];
 
