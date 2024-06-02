@@ -3,7 +3,10 @@
         <header>
             <nav class="navbar">
                 <div class="library-name">
-                    <p>Library Name</p>
+                    <div class="book-icon">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                    <p>Library Test</p>
                 </div>
 
                 <div class="user-name">

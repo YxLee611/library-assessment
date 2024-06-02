@@ -15,6 +15,27 @@ html, body {
     justify-content: space-between;
     padding: 24px 40px;
     background-color: var(--grey2);
+
+    .library-name {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .book-icon {
+            background-color: #fff;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+
+            i {
+                font-size: 12px;
+                color: var(--grey2);
+            }
+        }
+    }
+
+    
 }
 
 .sidebar {
