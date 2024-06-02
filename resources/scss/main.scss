@@ -12,21 +12,26 @@ html, body {
 
 .navbar {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 24px 40px;
     background-color: var(--grey2);
 
-    .library-name {
+    .library-name, .user-name {
         display: flex;
         justify-content: center;
         align-items: center;
 
-        .book-icon {
-            background-color: #fff;
+        .icon-wrapper {
+            background-color: var(--white);
             height: 40px;
             width: 40px;
             border-radius: 50%;
             margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--darkgrey1);
 
             i {
                 font-size: 12px;
@@ -35,7 +40,12 @@ html, body {
         }
     }
 
-    
+    .user-name {
+        .icon-wrapper {
+            margin-right: 0;
+            margin-left: 12px;
+        }
+    }
 }
 
 .sidebar {
@@ -44,25 +54,42 @@ html, body {
     color: var(--white);
     display: flex;
     flex-direction: column;
-    height:100%;
+    height: calc(100% - 88px);
+    justify-content: space-between;
 
-    .sidebar-menu {
-        list-style-type: none;
-        padding: 0;
-
-        li {
-            padding: 15px 20px;
-
-            &:hover {
-                background-color: var(--blue2);
-            }
-
-            a {
-                color: var(--white);
-                text-decoration: none;
+    .sidebar-content {
+        .sidebar-menu {
+            list-style-type: none;
+            padding: 0;
+    
+            li {
+                padding: 15px 20px;
+    
+                &:hover {
+                    background-color: var(--blue2);
+                }
+    
+                a {
+                    color: var(--white);
+                    text-decoration: none;
+                }
             }
         }
     }
+    
+    .sidebar-footer {
+        display: flex;
+        justify-content: space-between;
+
+        .logout {
+            padding: 15px 20px;
+    
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+   
 }
 
 main {
