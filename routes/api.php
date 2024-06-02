@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,9 @@ use App\Http\Controllers\UserController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+// User
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUserData']);
+Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'fetchAllUsers']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::get("/test-me", function () {
-    return 'Hello from Laravel!';
-});
+// Books
+Route::middleware('auth:sanctum')->get('/books', [BookController::class, 'fetchAllBooks']);

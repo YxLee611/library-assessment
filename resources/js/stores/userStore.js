@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export const useUserStore = defineStore('user', {
     state: () => ({
-        user: null
+        user: null,
+        allUsers: []
     }),
 
     actions: {
@@ -13,6 +14,15 @@ export const useUserStore = defineStore('user', {
                 this.user = response.data.user;
             } catch (error) {
                 console.error('Failed to fetch user data:', error);
+            }
+        },
+        async fetchAllUsers() {
+            try {
+                const response = await axios.get('/api/users');
+                console.log(response)
+                this.allUsers = response.data.users;
+            } catch (error) {
+                console.error('Failed to fetch all users:', error);
             }
         }
     }

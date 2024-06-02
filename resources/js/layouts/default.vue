@@ -22,9 +22,9 @@
                  <div class="sidebar-content">
                     <ul class="sidebar-menu">
                         <template v-for="item in sidebarMenu" :key="item.id">
-                            <li>
-                                <a :href="item.link">{{ item.label }}</a>
-                            </li>
+                            <a :href="item.link">
+                                <li>{{ item.label }}</li>
+                            </a>
                         </template>
                     </ul>
                 </div>
@@ -53,10 +53,8 @@ export default {
         const authStore = useAuthStore();
         const router = useRouter();
 
-        onMounted(() => {
-            userStore.fetchUserData();
-            // console.log('test')
-            // console.log(authStore.user)
+        onMounted(async () => {
+            await userStore.fetchUserData();
         });
 
          const adminSidebarMenu = [
@@ -71,7 +69,7 @@ export default {
             { id: 3, label: 'Borrowed Books', link: '/borrowed-books' },
         ];
 
-        const isAdmin = computed(() => authStore.user?.role_id === 1);
+        const isAdmin = computed(() => userStore.user?.role_id === 1);
         const sidebarMenu = computed(() => {
             return isAdmin.value ? adminSidebarMenu : userSidebarMenu;
         });

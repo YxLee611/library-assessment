@@ -61,17 +61,17 @@ html, body {
         .sidebar-menu {
             list-style-type: none;
             padding: 0;
+
+            a {
+                color: var(--white);
+                text-decoration: none;
+            }
     
             li {
                 padding: 15px 20px;
     
                 &:hover {
                     background-color: var(--blue2);
-                }
-    
-                a {
-                    color: var(--white);
-                    text-decoration: none;
                 }
             }
         }

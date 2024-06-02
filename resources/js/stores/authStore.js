@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('auth', {
 				return false;
 			}
 		},
-
+		
 		logout() {
 			this.user = null;
 			this.token = null;

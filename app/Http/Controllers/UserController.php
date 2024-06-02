@@ -12,12 +12,17 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        // Check if user exists
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
 
-        // Return user data
         return response()->json(['user' => $user]);
+    }
+
+    public function fetchAllUsers()
+    {
+        $users = User::with('role')->get();
+
+        return response()->json(['users' => $users], 200);
     }
 }

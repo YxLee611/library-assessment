@@ -3,6 +3,9 @@ import { useAuthStore } from '@/stores/authStore';
 import DefaultLayout from './layouts/default.vue';
 import Login from './page/Login.vue';
 import Dashboard from './page/Dashboard.vue';
+import Users from './page/Users.vue';
+import Books from './page/Books.vue';
+import BorrowedBooks from './page/BorrowedBooks.vue';
 
 const routes = [
     {
@@ -12,6 +15,21 @@ const routes = [
     {
         path: '/dashboard',
         component: Dashboard,
+        meta: { requiresAuth: true, layout: DefaultLayout },
+    },
+    {
+        path: '/books',
+        component: Books,
+        meta: { requiresAuth: true, layout: DefaultLayout },
+    },
+    {
+        path: '/users',
+        component: Users,
+        meta: { requiresAuth: true, layout: DefaultLayout },
+    },
+    {
+        path: '/borrowed-books',
+        component: BorrowedBooks,
         meta: { requiresAuth: true, layout: DefaultLayout },
     },
 ];
