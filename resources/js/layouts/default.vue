@@ -10,8 +10,8 @@
                 </div>
 
                 <div class="user-name">
-                    <p>User Name</p>
-                     <div class="icon-wrapper">
+                    <p>{{ userName }}</p>
+                    <div class="icon-wrapper">
                         <i class="fa-solid fa-user"></i>
                     </div>
                 </div>
@@ -21,12 +21,11 @@
             <nav class="sidebar">
                  <div class="sidebar-content">
                     <ul class="sidebar-menu">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Books</a></li>
-                        <li><a href="#">Users</a></li>
-                        <li><a href="#">Resources</a></li>
-                        <li><a href="#">Reports</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <template v-for="item in sidebarMenu" :key="item.id">
+                            <li>
+                                <a :href="item.link">{{ item.label }}</a>
+                            </li>
+                        </template>
                     </ul>
                 </div>
                 <div class="sidebar-footer">
@@ -41,24 +40,54 @@
 </template>
 
 <script>
+import { useUserStore } from '@/stores/userStore';
 import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
+import { onMounted, computed } from 'vue';
 
 export default {
     name: 'DefaultLayout',
 
     setup() {
+        const userStore = useUserStore();
         const authStore = useAuthStore();
         const router = useRouter();
+
+        onMounted(() => {
+            userStore.fetchUserData();
+            // console.log('test')
+            // console.log(authStore.user)
+        });
+
+         const adminSidebarMenu = [
+            { id: 1, label: 'Dashboard', link: '/dashboard' },
+            { id: 2, label: 'Books', link: '/books' },
+            { id: 3, label: 'Users', link: '/users' },
+        ];
+
+        const userSidebarMenu = [
+            { id: 1, label: 'Dashboard', link: '/dashboard' },
+            { id: 2, label: 'Books', link: '/books' },
+            { id: 3, label: 'Borrowed Books', link: '/borrowed-books' },
+        ];
+
+        const isAdmin = computed(() => authStore.user?.role_id === 1);
+        const sidebarMenu = computed(() => {
+            return isAdmin.value ? adminSidebarMenu : userSidebarMenu;
+        });
 
         const handleLogout = () => {
             authStore.logout();
             router.push('/');
         };
 
+        const userName = computed(() => userStore.user?.name);
+
         return {
+            sidebarMenu,
+            userName,
             handleLogout
         };
     }
-}
+};
 </script>
