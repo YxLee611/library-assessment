@@ -1,8 +1,15 @@
 import "./bootstrap";
+import '../scss/colors.scss';
 import '../scss/main.scss';
-import router from './router.js';
-import { createApp } from "vue";
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import App from './App.vue';
+import router from './router';
 
-import App from "./App.vue";
+const app = createApp(App);
 
-createApp(App).use(router).mount("#app");
+const pinia = createPinia();
+
+app.use(pinia);
+app.use(router);
+app.mount('#app');

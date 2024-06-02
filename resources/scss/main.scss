@@ -14,13 +14,13 @@ html, body {
     display: flex;
     justify-content: space-between;
     padding: 24px 40px;
-    background-color: #EAEDF1;
+    background-color: var(--grey2);
 }
 
 .sidebar {
     width: 250px;
-    background-color: #343a40;
-    color: white;
+    background-color: var(--darkgrey1);
+    color: var(--white);
     display: flex;
     flex-direction: column;
     height:100%;
@@ -33,11 +33,11 @@ html, body {
             padding: 15px 20px;
 
             &:hover {
-                background-color: #007bff;
+                background-color: var(--blue2);
             }
 
             a {
-                color: white;
+                color: var(--white);
                 text-decoration: none;
             }
         }

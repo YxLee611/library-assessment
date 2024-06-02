@@ -1,6 +1,7 @@
 <template>
+    <Alert v-if="alertMessage && showAlert" :type="alertType" :message="alertMessage" />
     <div class="form-wrapper">
-        <form @submit.prevent="login">
+        <form @submit.prevent="handleLogin">
             <h1>Login</h1>
             <div>
                 <label>Email</label>
@@ -22,21 +23,31 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
+import Alert from '@/components/Alert.vue'; 
 
 export default {
+    components: {
+        Alert
+    },
     setup() {
         const formData = reactive({
             email: '',
-            password: ''
+            password: '',
         });
 
         const errors = reactive({
             email: '',
-            password: ''
+            password: '',
         });
 
-        const login = () => {
+        const authStore = useAuthStore();
+        const router = useRouter();
+        const showAlert = ref(false);
+
+        const handleLogin = async () => {
             errors.email = '';
             errors.password = '';
 
@@ -53,7 +64,15 @@ export default {
             }
 
             if (!errors.email && !errors.password) {
-                console.log('Success');
+                const success = await authStore.login(formData.email, formData.password);
+                if (success) {
+                    router.push('/dashboard');
+                } else {
+                    showAlert.value = true;
+                    setTimeout(() => {
+                        showAlert.value = false;
+                    }, 5000);
+                }
             }
         };
 
@@ -61,12 +80,18 @@ export default {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         };
 
+        const alertType = computed(() => authStore.alertType);
+        const alertMessage = computed(() => authStore.alertMessage);
+
         return {
             formData,
             errors,
-            login
+            handleLogin,
+            showAlert,
+            alertType,
+            alertMessage
         };
-    }
+    },
 };
 </script>
 
@@ -75,14 +100,14 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-    background: #eee;
+    background: var(--grey1);
 
     form {
         max-width: 380px;
         padding: 40px 35px;
         margin: 0 auto;
-        background-color: #fff;
-        border: 1px solid rgba(0,0,0,0.1); 
+        background-color: var(--white);
+        border: 1px solid var(--black1);
         width: 100%;
 
         h1 {
@@ -105,7 +130,7 @@ export default {
             }
 
             span {
-                color: red;
+                color: var(--red3);
                 font-size: 12px;
                 padding-top: 8px;
                 display: block;
@@ -113,8 +138,8 @@ export default {
         }
 
         button {
-            background-color: #428BCA;
-            color: white;
+            background-color: var(--blue1);
+            color: var(--white);
             width: 100%;
             padding: 14px;
             border-radius: 30px;
