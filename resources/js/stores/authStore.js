@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+import apiClient from '@/api/apiClient';
 
 export const useAuthStore = defineStore('auth', {
 	state: () => ({
@@ -12,7 +14,7 @@ export const useAuthStore = defineStore('auth', {
 	actions: {
 		async login(email, password) {
 			try {
-				const response = await axios.post('/api/login', { email, password });
+				const response = await apiClient.post('/api/login', { email, password });
 				const { access_token, user } = response.data;
 
 				this.user = user;
@@ -29,7 +31,7 @@ export const useAuthStore = defineStore('auth', {
 				return false;
 			}
 		},
-		
+
 		logout() {
 			this.user = null;
 			this.token = null;
@@ -43,5 +45,24 @@ export const useAuthStore = defineStore('auth', {
 		setAlertMessage(message) {
 			this.alertMessage = message;
 		},
+
+		handleTokenExpiration() {
+            this.logout();
+            this.setAlertType('error');
+            this.setAlertMessage('Your session has expired. Please log in again.');
+        },
+
+		isTokenExpired() {
+            if (!this.token) {
+				console.log('test1');
+                return true;
+            }
+            try {
+                const decoded = jwtDecode(this.token);
+                return decoded.exp < Date.now() / 1000;
+            } catch (error) {
+                return true;
+            }
+        },
 	},
 });

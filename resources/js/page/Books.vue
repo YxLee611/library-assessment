@@ -59,6 +59,10 @@ export default {
             border: none;
             border-radius: 15px;
             padding: 14px 16px;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
    

@@ -41,7 +41,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
-    
+
     if (to.meta.requiresAuth && !authStore.token) {
         next('/');
     } 
@@ -51,6 +51,21 @@ router.beforeEach((to, from, next) => {
     else {
         next();
     }
+    
+    // if (authStore.token) {
+    //     if (authStore.isTokenExpired()) {
+    //         authStore.handleTokenExpiration();
+    //         next('/');
+    //     } else if (to.path === '/') {
+    //         next('/dashboard');
+    //     } else {
+    //         next();
+    //     }
+    // } else if (to.meta.requiresAuth) {
+    //     next('/');
+    // } else {
+    //     next();
+    // }
 });
 
 

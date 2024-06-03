@@ -20,8 +20,8 @@ use App\Http\Controllers\BookController;
 Route::post('/login', [AuthController::class, 'login']);
 
 // User
-Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUserData']);
-Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'fetchAllUsers']);
+Route::get('/user', [UserController::class, 'getUserData']);
+Route::get('/users', [UserController::class, 'fetchAllUsers']);
 
 // Books
-Route::middleware('auth:sanctum')->get('/books', [BookController::class, 'fetchAllBooks']);
+Route::get('/books', [BookController::class, 'fetchAllBooks']);
