@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookBorrowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,4 @@ Route::get('/users', [UserController::class, 'fetchAllUsers']);
 
 // Books
 Route::get('/books', [BookController::class, 'fetchAllBooks']);
+Route::post('/books/borrow', [BookBorrowController::class, 'borrow']);

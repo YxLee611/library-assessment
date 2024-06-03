@@ -57,7 +57,7 @@ export default {
             await userStore.fetchUserData();
         });
 
-         const adminSidebarMenu = [
+        const adminSidebarMenu = [
             { id: 1, label: 'Dashboard', link: '/dashboard' },
             { id: 2, label: 'Books', link: '/books' },
             { id: 3, label: 'Users', link: '/users' },
