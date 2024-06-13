@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookBorrowController;
+use App\Http\Controllers\StatisticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,20 @@ use App\Http\Controllers\BookBorrowController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+// Admin
+Route::get('/statistics', [StatisticsController::class, 'getStatistics']);
+
 // User
 Route::get('/user', [UserController::class, 'getUserData']);
 Route::get('/users', [UserController::class, 'fetchAllUsers']);
+Route::post('/user', [UserController::class, 'createUser']);
+Route::put('/users/{id}', [UserController::class, 'updateUser']);
 
 // Books
 Route::get('/books', [BookController::class, 'fetchAllBooks']);
+Route::post('/book', [BookController::class, 'createBook']);
+Route::get('/top-books', [BookController::class, 'topBooks']);
+
+// Borrow Books
 Route::post('/books/borrow', [BookBorrowController::class, 'borrow']);
+Route::get('/borrowed-books', [BookBorrowController::class, 'borrowedBooksList']);
