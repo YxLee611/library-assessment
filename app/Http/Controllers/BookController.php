@@ -44,6 +44,53 @@ class BookController extends Controller
         return response()->json(['message' => 'Book created successfully', 'data' => $book], 201);
     }
 
+    public function updateBook(Request $request, $id)
+    {
+        $book = Book::find($id);
+
+        if (!$book) {
+            return response()->json(['error' => 'Book not found'], 404);
+        }
+
+        $user = Auth::user();
+        if (!$user || $user->role_id !== 1) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'date_of_publication' => 'required|date',
+        ]);
+
+        $book->title = $validatedData['title'];
+        $book->author = $validatedData['author'];
+        $book->category_id = $validatedData['category_id'];
+        $book->date_of_publication = $validatedData['date_of_publication'];
+        $book->save();
+
+        return response()->json(['message' => 'Book updated successfully', 'data' => $book], 200);
+    }
+
+    public function deleteBook($id)
+    {
+        $book = Book::find($id);
+
+        if (!$book) {
+            return response()->json(['error' => 'Book not found'], 404);
+        }
+
+        $user = Auth::user();
+        if (!$user || $user->role_id !== 1) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $book->delete();
+
+        return response()->json(['message' => 'Book deleted successfully'], 200);
+    }
+
     public function topBooks()
     {
         $topBooks = Book::select('books.*', DB::raw('COUNT(borrowing_books.id) as borrow_count'))

@@ -28,12 +28,15 @@ Route::get('/statistics', [StatisticsController::class, 'getStatistics']);
 Route::get('/user', [UserController::class, 'getUserData']);
 Route::get('/users', [UserController::class, 'fetchAllUsers']);
 Route::post('/user', [UserController::class, 'createUser']);
-Route::put('/users/{id}', [UserController::class, 'updateUser']);
+Route::post('/users/{id}', [UserController::class, 'updateUser']);
+Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
 
 // Books
 Route::get('/books', [BookController::class, 'fetchAllBooks']);
 Route::post('/book', [BookController::class, 'createBook']);
 Route::get('/top-books', [BookController::class, 'topBooks']);
+Route::post('/book/{id}', [BookController::class, 'updateBook']);
+Route::delete('/book/{id}', [BookController::class, 'deleteBook']);
 
 // Borrow Books
 Route::post('/books/borrow', [BookBorrowController::class, 'borrow']);
